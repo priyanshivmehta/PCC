@@ -91,7 +91,7 @@ const ChatAssistant: React.FC = () => {
           </div>
           
           <div className="flex items-center space-x-2">
-            <select
+            <select title='language'
               value={currentLanguage}
               onChange={(e) => setCurrentLanguage(e.target.value)}
               className="text-sm border border-gray-300 rounded-lg px-2 py-1"
@@ -177,7 +177,7 @@ const ChatAssistant: React.FC = () => {
       {/* Input Area */}
       <div className="bg-white border-t border-gray-200 p-4">
         <div className="flex items-center space-x-2">
-          <button className="p-2 text-gray-600 hover:text-gray-800">
+          <button title='button' className="p-2 text-gray-600 hover:text-gray-800">
             <Mic className="w-5 h-5" />
           </button>
           <div className="flex-1 relative">
@@ -190,7 +190,7 @@ const ChatAssistant: React.FC = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
-          <button
+          <button title='message'
             onClick={handleSendMessage}
             disabled={!inputMessage.trim()}
             className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
