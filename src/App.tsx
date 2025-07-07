@@ -3,6 +3,7 @@ import { AppProvider } from './contexts/AppContext';
 import Navigation from './components/Navigation';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
+import 'leaflet/dist/leaflet.css';
 import Home from './pages/Home/Home.tsx';
 import Chat from './pages/Chat/Chat.tsx';
 import Tracker from './pages/Tracker/Tracker.tsx';

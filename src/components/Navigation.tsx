@@ -32,7 +32,7 @@ const Navigation: React.FC = () => {
           : 'relative'
       } z-50 px-4 py-2 border-b backdrop-blur-md shadow-md ${
         isHome ? 'bg-transparent border-pink-200' : 'bg-white border-pink-100'
-      }`}
+      } font-sans`}
     >
       <div className="flex justify-around items-center max-w-5xl mx-auto">
         {navItems.map((item) => {
@@ -46,15 +46,15 @@ const Navigation: React.FC = () => {
               className={`flex flex-col items-center px-3 py-1 rounded-md transition-all duration-200 ${
                 isActive
                   ? isHome
-                    ? 'bg-pink-600 text-white'
+                    ? 'text-pink-200 '
                     : 'bg-pink-100 text-pink-700'
                   : isHome
                   ? 'text-white hover:text-pink-200'
                   : 'text-pink-600 hover:text-pink-800'
-              }`}
+              } font-sans`}
             >
               <Icon className="w-5 h-5 mb-1" />
-              <span className="text-xs font-medium">{item.label}</span>
+              <span className="text-xs font-medium font-sans">{item.label}</span>
             </Link>
           );
         })}

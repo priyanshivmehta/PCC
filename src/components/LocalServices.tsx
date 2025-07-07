@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { MapPin, Phone, Clock, Star, Filter, Navigation, Guitar as Hospital, Shield, Heart, Search, DollarSign } from 'lucide-react';
 import { HealthService } from '../types';
+import MapView from './MapView';
+
 
 const LocalServices: React.FC = () => {
   const [filterType, setFilterType] = useState<'all' | 'government' | 'private'>('all');
@@ -101,11 +103,32 @@ const LocalServices: React.FC = () => {
 
   return (
     <div className="pb-20 px-4 space-y-6">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-xl p-6 border border-indigo-100">
-        <h2 className="text-xl font-bold text-gray-800 mb-2">Local Health Services</h2>
-        <p className="text-gray-600">Find nearby healthcare facilities and services</p>
-      </div>
+      {/* Hero/Header Section */}
+     <div
+  className="relative w-full mx-auto rounded-3xl overflow-hidden min-h-[580px] flex items-end mt-12 mb-10"
+  style={{
+    backgroundImage:
+      'linear-gradient(rgba(236, 72, 153, 0.7), rgba(236, 72, 153, 0.7)), url(https://plus.unsplash.com/premium_photo-1675808577247-2281dc17147a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  }}
+>
+  <div className="pl-24 pt-6 md:pl-32 md:pt-8 text-left w-full relative" style={{ top: '-150px' }}>
+    {/* White line from left to heading */}
+    <div className="absolute left-0 top-20 h-px bg-white w-[150px] md:w-[242px]" />
+
+    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg relative z-10">
+      Local Health Services
+    </h2>
+    <p className="text-lg md:text-2xl text-pink-100 font-medium drop-shadow-md max-w-2xl">
+      Find nearby healthcare facilities and services
+    </p>
+  </div>
+</div>
+
+
+
+
 
       {/* Search Bar */}
       <div className="relative">
@@ -123,7 +146,7 @@ const LocalServices: React.FC = () => {
       <div className="flex space-x-3 overflow-x-auto pb-2">
         <div className="flex items-center space-x-2 bg-white rounded-lg p-2 border border-gray-200 min-w-fit">
           <Filter className="w-4 h-4 text-gray-600" />
-          <select
+          <select title='filter'
             value={filterType}
             onChange={(e) => setFilterType(e.target.value as any)}
             className="text-sm focus:outline-none"
@@ -136,7 +159,7 @@ const LocalServices: React.FC = () => {
 
         <div className="flex items-center space-x-2 bg-white rounded-lg p-2 border border-gray-200 min-w-fit">
           <DollarSign className="w-4 h-4 text-gray-600" />
-          <select
+          <select title='cost'
             value={filterCost}
             onChange={(e) => setFilterCost(e.target.value as any)}
             className="text-sm focus:outline-none"
@@ -147,109 +170,10 @@ const LocalServices: React.FC = () => {
           </select>
         </div>
       </div>
+      <MapView services={filteredServices} />
 
-      {/* Quick Access Cards */}
-      <div className="grid grid-cols-2 gap-3">
-        <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-xl border border-green-100">
-          <div className="bg-green-100 p-2 rounded-lg w-fit mb-3">
-            <Shield className="w-6 h-6 text-green-600" />
-          </div>
-          <h3 className="font-semibold text-gray-800">Free Vaccination</h3>
-          <p className="text-sm text-gray-600 mt-1">Government centers nearby</p>
-        </div>
 
-        <div className="bg-gradient-to-r from-red-50 to-pink-50 p-4 rounded-xl border border-red-100">
-          <div className="bg-red-100 p-2 rounded-lg w-fit mb-3">
-            <Hospital className="w-6 h-6 text-red-600" />
-          </div>
-          <h3 className="font-semibold text-gray-800">Emergency Care</h3>
-          <p className="text-sm text-gray-600 mt-1">24/7 available</p>
-        </div>
-      </div>
-
-      {/* Services List */}
-      <div className="space-y-4">
-        {filteredServices.map((service) => {
-          const ServiceIcon = getServiceIcon(service);
-          
-          return (
-            <div key={service.id} className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
-              <div className="flex items-start space-x-3">
-                <div className={`p-2 rounded-lg ${service.type === 'government' ? 'bg-blue-100' : 'bg-purple-100'}`}>
-                  <ServiceIcon className={`w-5 h-5 ${service.type === 'government' ? 'text-blue-600' : 'text-purple-600'}`} />
-                </div>
-
-                <div className="flex-1">
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <h4 className="font-semibold text-gray-800">{service.name}</h4>
-                      <div className="flex items-center space-x-2 mt-1">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getCostColor(service.cost)}`}>
-                          {getCostLabel(service.cost)}
-                        </span>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          service.type === 'government' ? 'text-blue-600 bg-blue-100' : 'text-purple-600 bg-purple-100'
-                        }`}>
-                          {service.type === 'government' ? 'Government' : 'Private'}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <MapPin className="w-4 h-4 text-gray-500" />
-                      <span className="text-sm text-gray-600">{service.distance} km</span>
-                    </div>
-                  </div>
-
-                  <div className="mb-3">
-                    <p className="text-sm text-gray-600 mb-1">Services:</p>
-                    <div className="flex flex-wrap gap-1">
-                      {service.services.map((serviceItem, index) => (
-                        <span key={index} className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full">
-                          {serviceItem}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="space-y-2 text-sm text-gray-600">
-                    <div className="flex items-center space-x-2">
-                      <MapPin className="w-4 h-4" />
-                      <span>{service.address}</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Clock className="w-4 h-4" />
-                      <span>{service.availability}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
-                    <button className="flex items-center space-x-2 text-blue-600 hover:text-blue-700">
-                      <Phone className="w-4 h-4" />
-                      <span className="text-sm font-medium">Call</span>
-                    </button>
-                    <button className="flex items-center space-x-2 text-green-600 hover:text-green-700">
-                      <Navigation className="w-4 h-4" />
-                      <span className="text-sm font-medium">Directions</span>
-                    </button>
-                    <div className="flex items-center space-x-1">
-                      <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                      <span className="text-sm text-gray-600">4.2</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {filteredServices.length === 0 && (
-        <div className="bg-gray-50 rounded-xl p-8 text-center">
-          <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-600">No services found</p>
-          <p className="text-sm text-gray-500 mt-1">Try adjusting your filters or search terms</p>
-        </div>
-      )}
+      
     </div>
   );
 };

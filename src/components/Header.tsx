@@ -27,10 +27,10 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
         </div>
         
         <div className="flex items-center space-x-2">
-          <button className="p-2 rounded-full hover:bg-white/50 transition-colors">
+          <button title='bell' className="p-2 rounded-full hover:bg-white/50 transition-colors">
             <Bell className="w-5 h-5 text-gray-600" />
           </button>
-          <button className="p-2 rounded-full hover:bg-white/50 transition-colors">
+          <button title='settings' className="p-2 rounded-full hover:bg-white/50 transition-colors">
             <Settings className="w-5 h-5 text-gray-600" />
           </button>
         </div>
