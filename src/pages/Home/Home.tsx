@@ -1,33 +1,31 @@
 import React from 'react';
-import pregnantVideo from '../../assets/pregnantmom.mp4';
+import Coverbg from '../../assets/coverbg.jpg';
 
 const Home: React.FC = () => {
   return (
     <div className="relative h-screen w-full overflow-hidden font-sans">
-      {/* Background Video */}
-      <video
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
-        autoPlay
-        muted
-        loop
-        playsInline
-      >
-        <source src={pregnantVideo} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      {/* Background Image */}
+      <img
+        src={Coverbg}
+        alt="Cover background"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
 
-      {/* Hero Content (Upper Left) */}
-      <div className="absolute top-0 left-0 z-10 flex flex-col items-start justify-start p-10 pt-48 text-white rounded-br-3xl max-w-3xl w-full gap-2">
-  <h1 className=" text-5xl md:text-6xl font-bold font-sans drop-shadow-lg">
-    Welcome to ChAlid-Baby Care 
+      {/* Hero Content (Right Center, text left-aligned) */}
+      <div className="absolute inset-0 z-10 flex items-center justify-end px-10">
+        <div className="p-4 sm:p-6 md:p-10 rounded-xl max-w-xl w-full text-left text-black font-poppins">
+  <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold">
+    Welcome to ChAild
   </h1>
-  <p className=" text-2xl md:text-3xl font-sans font-normal mt-2 drop-shadow">
-    Everything you need for your child
+  <p className="text-sm sm:text-base md:text-lg lg:text-xl mt-4 drop-shadow text-black">
+    Guiding You Through the First 1000 Days
   </p>
+  <button className="mt-6 px-6 py-3 border-2 border-black text-black rounded-md text-lg font-medium hover:bg-[#ebc7ea] transition duration-300">
+    Get Started
+  </button>
 </div>
 
-
-     
+      </div>
     </div>
   );
 };

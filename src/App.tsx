@@ -18,7 +18,7 @@ const App: React.FC = () => {
   return (
     <AppProvider>
       <div className="min-h-screen bg-gray-50">
-        <Navigation/>
+        {/* <Navigation/> */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/chat" element={<Chat />} />

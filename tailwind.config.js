@@ -4,12 +4,13 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: [
-          'Sans Regular',
-          'ui-sans-serif',
-          'system-ui',
-          'sans-serif',
-        ],
+        poppins: ['Poppins', 'sans-serif'],
+        // sans: [
+        //   'Sans Regular',
+        //   'ui-sans-serif',
+        //   'system-ui',
+        //   'sans-serif',
+        // ],
       },
     },
   },
