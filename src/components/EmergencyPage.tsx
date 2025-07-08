@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Phone, AlertTriangle, Guitar as Hospital, Clock, MapPin, Heart, Thermometer, Zap, Info, ChevronRight, Shield } from 'lucide-react';
 
-const Emergency: React.FC = () => {
+const EmergencyPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
 
   const emergencyNumbers = [
@@ -285,4 +285,4 @@ const Emergency: React.FC = () => {
   );
 };
 
-export default Emergency;
+export default EmergencyPage;

@@ -3,3 +3,100 @@ For all designs I ask you to make, have them be beautiful, not cookie cutter. Ma
 By default, this template supports JSX syntax with Tailwind CSS classes, React hooks, and Lucide React for icons. Do not install other packages for UI themes, icons, etc unless absolutely necessary or I request them.
 
 Use icons from lucide-react for logos.
+
+<!-- 1. Personalized Baby Care Guidance
+
+Stage-wise advice based on:
+
+Pre-pregnancy
+w
+Pregnancy trimesters
+
+First 2 years of the child's life
+
+Content tailored to:
+
+Mother's health condition
+
+Baby's age
+
+Local cultural and dietary practices
+
+2. LLM-Powered Chat Assistant (in Hindi, English & Regional Languages)
+
+Parents can ask doubts like:
+
+"My baby has a mild fever, what should I do?"
+
+"Where can I get free vaccination near me?"
+
+The Al responds in simple, regional language with authoritative, government-aligned advice.
+3. Local Health Services Integration
+
+Show nearby:
+
+Government health centers (Anganwadi, ANM centers)
+
+Private clinics
+
+Immunization centers
+
+Filter by free/paid, distance, service availability
+
+4. Vaccination & Health Tracker
+
+Auto-generate personalized vaccine schedule based on birth date
+
+Notify parents of upcoming vaccinations
+
+Track weight, height, milestone achievements
+
+5. Nutritional Guidance (Based on Indian Diet)
+
+Meal plans for:
+
+Pre-pregnancy women
+
+Pregnant women
+
+Breastfeeding mothers
+
+Weaning babies (Annaprashana guidance)
+
+Suggest affordable, locally available foods (dal, ragi, bajra, spinach, etc.)
+6. Emergency & Medical Alerts
+
+Al detects concerning symptoms (e.g., severe fever, breathing issues) and suggests immediate medical action
+
+Option to call helplines like 102/108 directly from app
+
+7. Offline-First Lightweight App
+
+Minimal data consumption
+
+Key info (vaccination schedule, health tips) available offline
+
+Works on low-cost Android phones
+
+8. Visual Content for Low-Literacy Users
+
+Infographics, step-by-step illustrations (e.g., how to hold a newborn)
+
+Video explainers with voice-over in local languages
+
+9. Trusted Content from Official Sources
+
+Verified information from:
+
+Rashtriya Bal Swasthya Karyakram (RBSK)
+
+National Health Mission
+
+Ministry of Health & Family Welfare
+Vision-Language Al:
+
+Parents upload a photo of a rash/illness; Al suggests possible non-serious causes or recommends a doctor visit
+
+Integration with Govt. Schemes:
+
+Show eligibility & how to apply for schemes like Janani Suraksha Yojana, free hospital delivery options -->

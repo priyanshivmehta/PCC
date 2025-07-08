@@ -117,11 +117,28 @@ const HealthTracker: React.FC = () => {
 
   return (
     <div className="pb-20 px-4 space-y-6">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-100">
-        <h2 className="text-xl font-bold text-gray-800 mb-2">Health Tracker</h2>
-        <p className="text-gray-600">Monitor your baby's growth and vaccination schedule</p>
-      </div>
+     {/* Hero/Header Section */}
+     <div
+  className="relative w-full mx-auto rounded-3xl overflow-hidden min-h-[580px] flex items-end mt-12 mb-10"
+  style={{
+    backgroundImage:
+      'linear-gradient(rgba(236, 72, 153, 0.7), rgba(236, 72, 153, 0.7)), url(https://images.unsplash.com/photo-1535571393765-ea44927160be?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  }}
+>
+  <div className="pl-24 pt-6 md:pl-32 md:pt-8 text-left w-full relative" style={{ top: '-150px' }}>
+    {/* White line from left to heading */}
+    <div className="absolute left-0 top-20 h-px bg-white w-[150px] md:w-[242px]" />
+
+    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg relative z-10">
+       Health Tracker
+    </h2>
+    <p className="text-lg md:text-2xl text-pink-100 font-medium drop-shadow-md max-w-2xl">
+      Monitor your baby's growth and vaccination schedule
+    </p>
+  </div>
+</div>
 
       {/* Tabs */}
       <div className="flex bg-gray-100 rounded-lg p-1">

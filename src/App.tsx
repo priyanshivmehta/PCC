@@ -1,52 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { AppProvider } from './contexts/AppContext';
 import Navigation from './components/Navigation';
-import Header from './components/Header';
-import Dashboard from './components/Dashboard';
-import ChatAssistant from './components/ChatAssistant';
-import HealthTracker from './components/HealthTracker';
-import LocalServices from './components/LocalServices';
-import NutritionGuide from './components/NutritionGuide';
-import Emergency from './components/Emergency';
-import Profile from './components/Profile';
+import { Routes, Route, useLocation } from 'react-router-dom';
+
+import 'leaflet/dist/leaflet.css';
+import Home from './pages/Home/Home.tsx';
+import Chat from './pages/Chat/Chat.tsx';
+import Tracker from './pages/Tracker/Tracker.tsx';
+import Services from './pages/Services/Services.tsx';
+import Nutrition from './pages/Nutrition/Nutrition.tsx';
+import Emergency from './pages/Emergency/Emergency.tsx';
+import Profile from './pages/Profile/Profile.tsx';
 
 const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState('dashboard');
-
-  const getPageTitle = () => {
-    switch (currentPage) {
-      case 'dashboard': return 'Baby Care Dashboard';
-      case 'chat': return 'AI Care Assistant';
-      case 'tracker': return 'Health Tracker';
-      case 'services': return 'Local Services';
-      case 'nutrition': return 'Nutrition Guide';
-      case 'emergency': return 'Emergency Help';
-      case 'profile': return 'Profile';
-      default: return 'Baby Care App';
-    }
-  };
-
-  const renderCurrentPage = () => {
-    switch (currentPage) {
-      case 'dashboard': return <Dashboard />;
-      case 'chat': return <ChatAssistant />;
-      case 'tracker': return <HealthTracker />;
-      case 'services': return <LocalServices />;
-      case 'nutrition': return <NutritionGuide />;
-      case 'emergency': return <Emergency />;
-      case 'profile': return <Profile />;
-      default: return <Dashboard />;
-    }
-  };
+  const location = useLocation();
 
   return (
     <AppProvider>
       <div className="min-h-screen bg-gray-50">
-        <Header title={getPageTitle()} />
-        <main className="pt-20">
-          {renderCurrentPage()}
-        </main>
-        <Navigation currentPage={currentPage} onPageChange={setCurrentPage} />
+        <Navigation/>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/chat" element={<Chat />} />
+            <Route path="/tracker" element={<Tracker />} />
+            <Route path="/services" element={<Services/>} />
+            <Route path="/nutrition" element={<Nutrition/>} />
+            <Route path="/emergency" element={<Emergency />} />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
       </div>
     </AppProvider>
   );

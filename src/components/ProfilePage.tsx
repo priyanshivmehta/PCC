@@ -15,7 +15,7 @@ import {
 import { useApp } from '../contexts/AppContext';
 import { User as UserType, Baby as BabyType } from '../types';
 
-const Profile: React.FC = () => {
+const ProfilePage: React.FC = () => {
   const { user, setUser, baby, setBaby, currentLanguage, setCurrentLanguage } = useApp();
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState<'mother' | 'baby'>('mother');
@@ -106,7 +106,7 @@ const Profile: React.FC = () => {
               <div className="bg-white p-3 rounded-full shadow-sm">
                 <User className="w-8 h-8 text-purple-600" />
               </div>
-              <button className="absolute -bottom-1 -right-1 bg-purple-600 text-white p-1 rounded-full">
+              <button title='camera' className="absolute -bottom-1 -right-1 bg-purple-600 text-white p-1 rounded-full">
                 <Camera className="w-3 h-3" />
               </button>
             </div>
@@ -286,7 +286,7 @@ const Profile: React.FC = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
                   {isEditing ? (
-                    <input
+                    <input title='dob'
                       type="date"
                       value={babyForm.dateOfBirth}
                       onChange={(e) => setBabyForm({...babyForm, dateOfBirth: e.target.value})}
@@ -308,7 +308,7 @@ const Profile: React.FC = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
                   {isEditing ? (
-                    <select
+                    <select title='gender'
                       value={babyForm.gender}
                       onChange={(e) => setBabyForm({...babyForm, gender: e.target.value as 'male' | 'female'})}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
@@ -373,7 +373,7 @@ const Profile: React.FC = () => {
               </div>
             </div>
             <label className="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" className="sr-only peer" defaultChecked />
+              <input title='bell' type="checkbox" className="sr-only peer" defaultChecked />
               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
             </label>
           </div>
@@ -394,4 +394,4 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile;
+export default ProfilePage;
