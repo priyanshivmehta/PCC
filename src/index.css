@@ -4,15 +4,17 @@
 
 /* Import Sans Regular font (replace URL with actual font file if available) */
 @font-face {
-  font-family: 'Sans Regular';
-  src: url('/fonts/SansRegular.woff2') format('woff2'),
-       url('/fonts/SansRegular.woff') format('woff');
+  font-family: "Sans Regular";
+  src: url("/fonts/SansRegular.woff2") format("woff2"),
+    url("/fonts/SansRegular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   @apply font-sans;
-  font-family: 'Sans Regular', ui-sans-serif, system-ui, sans-serif;
+  font-family: "Sans Regular", ui-sans-serif, system-ui, sans-serif;
 }
