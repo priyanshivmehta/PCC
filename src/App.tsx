@@ -19,7 +19,6 @@ const App: React.FC = () => {
 
   return (
     <AppProvider>
-      {/* <Chatbot /> */}
       <div className="min-h-screen bg-gray-50">
         {/* <Navigation/> */}
 
