@@ -260,7 +260,7 @@ const HealthTracker: React.FC = () => {
                 <div key={record.id} className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
                   <div className="flex items-center justify-between mb-3">
                     <h4 className="font-semibold text-gray-800">
-                      {record.date.toLocaleDateString()}
+                      {new Date(record.date).toLocaleDateString()}
                     </h4>
                     <TrendingUp className="w-4 h-4 text-green-600" />
                   </div>

@@ -7,7 +7,8 @@ import {
   MapPin,
   Utensils,
   AlertTriangle,
-  User
+  User,
+  Syringe
 } from 'lucide-react';
 
 const Navigation: React.FC = () => {
@@ -16,7 +17,7 @@ const Navigation: React.FC = () => {
 
   const navItems = [
     { path: '/', icon: Home, label: 'Home', color: 'text-pink-600' },
-    { path: '/chat', icon: MessageCircle, label: 'Ask AI', color: 'text-pink-600' },
+    { path: '/vaccinations', icon: Syringe, label: 'Vaccination', color: 'text-pink-600' },
     { path: '/tracker', icon: Calendar, label: 'Health', color: 'text-pink-600' },
     { path: '/services', icon: MapPin, label: 'Services', color: 'text-pink-600' },
     { path: '/nutrition', icon: Utensils, label: 'Nutrition', color: 'text-pink-600' },
@@ -30,9 +31,9 @@ const Navigation: React.FC = () => {
         isHome
           ? 'absolute top-0 left-0 right-0'
           : 'relative'
-      } z-50 px-4 py-2 border-b backdrop-blur-md shadow-md ${
-        isHome ? 'bg-transparent border-pink-200' : 'bg-white border-pink-100'
-      } font-sans`}
+      } z-50 px-4 py-2 ${
+        isHome ? 'bg-transparent' : 'bg-[#8e3b30] border-pink-100'
+      } font-poppins`}
     >
       <div className="flex justify-around items-center max-w-5xl mx-auto">
         {navItems.map((item) => {
@@ -46,11 +47,11 @@ const Navigation: React.FC = () => {
               className={`flex flex-col items-center px-3 py-1 rounded-md transition-all duration-200 ${
                 isActive
                   ? isHome
-                    ? 'text-pink-200 '
-                    : 'bg-pink-100 text-pink-700'
+                    ? ''
+                    : 'text-white'
                   : isHome
-                  ? 'text-white hover:text-pink-200'
-                  : 'text-pink-600 hover:text-pink-800'
+                  ? ''
+                  : 'text-white hover:text-gray-400'
               } font-sans`}
             >
               <Icon className="w-5 h-5 mb-1" />

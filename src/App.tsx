@@ -6,21 +6,25 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import Home from "./pages/Home/Home.tsx";
 import Chat from "./pages/Chat/Chat.tsx";
-import Tracker from "./pages/Tracker/Tracker.tsx";
-import Services from "./pages/Services/Services.tsx";
-import Nutrition from "./pages/Nutrition/Nutrition.tsx";
-import Emergency from "./pages/Emergency/Emergency.tsx";
-import Profile from "./pages/Profile/Profile.tsx";
+import Tracker from "./components/HealthTracker.tsx";
+import Services from "./components/LocalServices.tsx";
+import Nutrition from "./components/NutritionGuide.tsx";
+import Emergency from "./components/EmergencyPage.tsx";
+import Profile from "./components/ProfilePage.tsx";
 import NearbyPlaces from "./components/NearbyHospitals.tsx";
-import Chatbot from "./components/Chatbot.tsx";
+import Vaccination from "./components/Vaccination.tsx";
 
 const App: React.FC = () => {
   const location = useLocation();
 
+  // Check if current path is home "/"
+  const isHomePage = location.pathname === "/";
+
   return (
     <AppProvider>
       <div className="min-h-screen bg-gray-50">
-        {/* <Navigation/> */}
+        {/* Render Navigation only if NOT home page */}
+        {!isHomePage && <Navigation />}
 
         <Routes>
           <Route path="/" element={<Home />} />
@@ -31,6 +35,7 @@ const App: React.FC = () => {
           <Route path="/nutrition" element={<Nutrition />} />
           <Route path="/emergency" element={<Emergency />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/vaccinations" element={<Vaccination />} />
         </Routes>
       </div>
     </AppProvider>
