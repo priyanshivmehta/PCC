@@ -1,5 +1,17 @@
 import React, { useState } from 'react';
-import { Phone, AlertTriangle, Guitar as Hospital, Clock, MapPin, Heart, Thermometer, Zap, Info, ChevronRight, Shield } from 'lucide-react';
+import {
+  Phone,
+  AlertTriangle,
+  Plus,
+  Clock,
+  MapPin,
+  Heart,
+  Thermometer,
+  Zap,
+  Info,
+  ChevronRight,
+  Shield
+} from 'lucide-react';
 
 const EmergencyPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
@@ -16,7 +28,7 @@ const EmergencyPage: React.FC = () => {
       name: 'Medical Emergency',
       number: '102',
       description: 'Free ambulance service',
-      icon: Hospital,
+      icon: Plus,
       color: 'bg-blue-600'
     },
     {
@@ -41,48 +53,48 @@ const EmergencyPage: React.FC = () => {
       icon: Zap,
       color: 'bg-red-500',
       symptoms: [
-        'Difficulty breathing or rapid breathing',
-        'Blue lips or face (cyanosis)',
-        'Wheezing or gasping sounds',
-        'Chest retractions while breathing'
+        'Difficulty breathing',
+        'Blue lips or face',
+        'Wheezing or gasping',
+        'Chest retractions'
       ],
-      action: 'Call 102 immediately and rush to nearest hospital'
+      action: 'Call 102 immediately & go to hospital'
     },
     {
       category: 'High Fever',
       icon: Thermometer,
       color: 'bg-orange-500',
       symptoms: [
-        'Temperature above 100.4°F (38°C) in newborns',
-        'Temperature above 104°F (40°C) in older babies',
-        'Fever with severe lethargy',
-        'Fever with difficulty feeding'
+        'Temp > 100.4°F (38°C) in newborns',
+        'Temp > 104°F (40°C) in older babies',
+        'Severe lethargy',
+        'Difficulty feeding'
       ],
-      action: 'Contact pediatrician immediately. Cool the baby and monitor closely'
+      action: 'Contact pediatrician – cool baby & monitor'
     },
     {
       category: 'Severe Symptoms',
       icon: AlertTriangle,
       color: 'bg-red-600',
       symptoms: [
-        'Unconsciousness or extreme lethargy',
-        'Severe vomiting or diarrhea with dehydration',
-        'Persistent crying for over 3 hours',
-        'Signs of severe pain or distress'
+        'Unconsciousness',
+        'Severe vomiting/diarrhea',
+        'Persistent crying >3 hrs',
+        'Signs of severe pain'
       ],
-      action: 'Emergency medical attention required - Call 102'
+      action: 'Emergency attention required – Call 102'
     },
     {
       category: 'Injury/Accidents',
-      icon: Hospital,
+      icon: Plus,
       color: 'bg-purple-500',
       symptoms: [
-        'Head injury or fall from height',
-        'Severe cuts or bleeding',
-        'Burns or scalds',
+        'Head injury',
+        'Severe cuts/bleeding',
+        'Burns',
         'Suspected fractures'
       ],
-      action: 'Do not move the baby. Call emergency services immediately'
+      action: 'Do not move the baby. Call emergency services'
     }
   ];
 
@@ -90,79 +102,90 @@ const EmergencyPage: React.FC = () => {
     {
       title: 'Choking',
       steps: [
-        'For babies under 1 year: Hold face down on your forearm',
-        'Give 5 back blows between shoulder blades',
-        'Turn baby over and give 5 chest compressions',
-        'Call 102 if object not dislodged'
+        'Hold face down on forearm',
+        '5 back blows',
+        '5 chest compressions',
+        'Call 102 if object remains'
       ]
     },
     {
       title: 'Fever Management',
       steps: [
-        'Remove excess clothing and blankets',
-        'Use tepid sponging (lukewarm water)',
-        'Ensure adequate hydration',
-        'Give prescribed medication as per doctor\'s advice'
+        'Remove excess clothing',
+        'Use tepid sponge',
+        'Ensure hydration',
+        'Give meds as doctor advised'
       ]
     },
     {
       title: 'Minor Cuts',
       steps: [
-        'Clean your hands thoroughly',
-        'Stop bleeding with clean cloth pressure',
-        'Clean wound with clean water',
-        'Apply bandage and monitor for infection signs'
+        'Clean hands thoroughly',
+        'Press clean cloth on wound',
+        'Wash with clean water',
+        'Bandage & watch for infection'
       ]
     }
   ];
 
   const handleCall = (number: string) => {
-    if (typeof window !== 'undefined' && window.location.href.includes('tel:')) {
+    if (typeof window !== 'undefined') {
       window.location.href = `tel:${number}`;
-    } else {
-      // For demo purposes, show alert
-      alert(`Calling ${number}...`);
     }
   };
 
   return (
-    <div className="pb-20 px-4 space-y-6">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-red-50 to-pink-50 rounded-xl p-6 border border-red-100">
-        <div className="flex items-center space-x-3 mb-2">
-          <div className="bg-red-100 p-2 rounded-lg">
-            <AlertTriangle className="w-6 h-6 text-red-600" />
-          </div>
-          <h2 className="text-xl font-bold text-gray-800">Emergency & Medical Help</h2>
+    <div className="pb-8 px-4 space-y-6 bg-[#fdfbf7]">
+      
+      {/* Hero/Header Section */}
+      <div
+        className="relative w-full mx-auto rounded-3xl overflow-hidden min-h-[580px] flex items-end mt-12 mb-10"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(165, 42, 42, 0.7), rgba(165, 42, 42, 0.7)), url(https://plus.unsplash.com/premium_photo-1664476541563-ab0ea7020026?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div
+          className="pl-24 pt-6 md:pl-32 md:pt-8 text-left w-full relative"
+          style={{ top: "-150px" }}
+        >
+          {/* White line from left to heading */}
+          <div className="absolute left-0 top-20 h-px bg-white w-[150px] md:w-[242px]" />
+
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg relative z-10">
+            Emergency Attention
+          </h2>
+          <p className="text-lg md:text-2xl text-pink-100 font-medium drop-shadow-md max-w-2xl">
+          </p>
         </div>
-        <p className="text-gray-600">Quick access to emergency services and first aid guidance</p>
       </div>
 
-      {/* Emergency Numbers */}
-      <div className="space-y-3">
-        <h3 className="text-lg font-semibold text-gray-800">Emergency Contacts</h3>
-        <div className="grid grid-cols-1 gap-3">
-          {emergencyNumbers.map((contact, index) => {
+      {/* Emergency Contacts */}
+      <div className="space-y-2">
+        <h2 className="text-xl font-bold text-[#5a3821]">Emergency Contacts</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {emergencyNumbers.map(contact => {
             const Icon = contact.icon;
             return (
-              <div key={index} className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <div className={`${contact.color} p-2 rounded-lg`}>
-                      <Icon className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-800">{contact.name}</h4>
-                      <p className="text-sm text-gray-600">{contact.description}</p>
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => handleCall(contact.number)}
-                    className={`${contact.color} text-white px-6 py-2 rounded-lg font-bold text-lg hover:opacity-90 transition-opacity`}
-                  >
-                    {contact.number}
-                  </button>
+              <div
+                key={contact.number}
+                className="bg-[#f5ebe0] rounded-2xl p-6 flex items-center shadow-lg"
+              >
+                <div className={`${contact.color} rounded-full p-3`}>
+                  <Icon className="w-8 h-8 text-white" />
                 </div>
+                <div className="ml-4 flex-1">
+                  <h4 className="text-lg font-semibold text-[#5a3821]">{contact.name}</h4>
+                  <p className="text-sm text-[#7a5a3a]">{contact.description}</p>
+                </div>
+                <button
+                  onClick={() => handleCall(contact.number)}
+                  className={`${contact.color} text-white px-5 py-3 rounded-full font-semibold text-lg shadow hover:opacity-90`}
+                >
+                  📞 {contact.number}
+                </button>
               </div>
             );
           })}
@@ -170,50 +193,52 @@ const EmergencyPage: React.FC = () => {
       </div>
 
       {/* Emergency Symptoms */}
-      <div className="space-y-3">
-        <h3 className="text-lg font-semibold text-gray-800">When to Seek Emergency Help</h3>
+      <div className="space-y-2">
+        <h2 className="text-xl font-bold text-[#5a3821]">When to Seek Help</h2>
         <div className="space-y-3">
-          {emergencySymptoms.map((emergency, index) => {
-            const Icon = emergency.icon;
-            const isSelected = selectedCategory === emergency.category;
-            
+          {emergencySymptoms.map(em => {
+            const Icon = em.icon;
+            const isOpen = selectedCategory === em.category;
             return (
-              <div key={index} className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+              <div
+                key={em.category}
+                className="bg-white/80 rounded-2xl shadow-lg overflow-hidden"
+              >
                 <button
-                  onClick={() => setSelectedCategory(isSelected ? '' : emergency.category)}
-                  className="w-full p-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                  onClick={() =>
+                    setSelectedCategory(isOpen ? '' : em.category)
+                  }
+                  className="w-full px-6 py-5 flex items-center justify-between hover:bg-[#f5ebe0] transition"
                 >
-                  <div className="flex items-center space-x-3">
-                    <div className={`${emergency.color} p-2 rounded-lg`}>
-                      <Icon className="w-5 h-5 text-white" />
+                  <div className="flex items-center space-x-4">
+                    <div className={`${em.color} rounded-full p-3`}>
+                      <Icon className="w-8 h-8 text-white" />
                     </div>
-                    <h4 className="font-semibold text-gray-800">{emergency.category}</h4>
+                    <h4 className="text-lg font-semibold text-[#5a3821]">
+                      {em.category}
+                    </h4>
                   </div>
-                  <ChevronRight className={`w-5 h-5 text-gray-400 transition-transform ${
-                    isSelected ? 'rotate-90' : ''
-                  }`} />
+                  <ChevronRight
+                    className={`w-6 h-6 text-[#7a5a3a] transition-transform ${
+                      isOpen ? 'rotate-90' : ''
+                    }`}
+                  />
                 </button>
-                
-                {isSelected && (
-                  <div className="px-4 pb-4 border-t border-gray-100">
-                    <div className="space-y-3 mt-3">
-                      <div>
-                        <p className="text-sm font-medium text-gray-700 mb-2">Symptoms to watch for:</p>
-                        <ul className="space-y-1">
-                          {emergency.symptoms.map((symptom, idx) => (
-                            <li key={idx} className="text-sm text-gray-600 flex items-start space-x-2">
-                              <div className="w-1.5 h-1.5 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                              <span>{symptom}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      
-                      <div className="bg-red-50 p-3 rounded-lg border border-red-100">
-                        <p className="text-sm font-medium text-red-800 mb-1">Immediate Action:</p>
-                        <p className="text-sm text-red-700">{emergency.action}</p>
-                      </div>
+                {isOpen && (
+                  <div className="px-8 py-4 bg-[#fdfbf7] space-y-4">
+                    <div className="flex flex-wrap gap-2">
+                      {em.symptoms.map((s, i) => (
+                        <span
+                          key={i}
+                          className="bg-[#d6b08b] text-[#5a3821] text-sm px-3 py-1 rounded-full shadow-sm"
+                        >
+                          {s}
+                        </span>
+                      ))}
                     </div>
+                    <button className="w-full bg-[#b58857] text-white py-3 rounded-2xl font-bold">
+                      {em.action}
+                    </button>
                   </div>
                 )}
               </div>
@@ -223,63 +248,62 @@ const EmergencyPage: React.FC = () => {
       </div>
 
       {/* First Aid Tips */}
-      <div className="space-y-3">
-        <h3 className="text-lg font-semibold text-gray-800">Basic First Aid</h3>
+      <div className="space-y-2">
+        <h2 className="text-xl font-bold text-[#5a3821]">Basic First Aid</h2>
         <div className="space-y-3">
-          {firstAidTips.map((tip, index) => (
-            <div key={index} className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
-              <div className="flex items-center space-x-2 mb-3">
-                <div className="bg-blue-100 p-1 rounded">
-                  <Info className="w-4 h-4 text-blue-600" />
-                </div>
-                <h4 className="font-semibold text-gray-800">{tip.title}</h4>
+          {firstAidTips.map(tip => (
+            <div
+              key={tip.title}
+              className="bg-[#f5ebe0] rounded-2xl p-6 shadow-lg"
+            >
+              <div className="flex items-center mb-4 space-x-3">
+                <Info className="w-6 h-6 text-[#5a3821]" />
+                <h4 className="text-lg font-semibold text-[#5a3821]">
+                  {tip.title}
+                </h4>
               </div>
-              
-              <ol className="space-y-2">
-                {tip.steps.map((step, idx) => (
-                  <li key={idx} className="text-sm text-gray-700 flex items-start space-x-2">
-                    <span className="bg-blue-100 text-blue-600 text-xs font-bold px-1.5 py-0.5 rounded flex-shrink-0 mt-0.5">
-                      {idx + 1}
+              <div className="flex flex-wrap gap-3">
+                {tip.steps.map((step, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center space-x-2 bg-white px-3 py-2 rounded-full shadow"
+                  >
+                    <span className="text-[#b58857] font-semibold">
+                      {i + 1}
                     </span>
-                    <span>{step}</span>
-                  </li>
+                    <span className="text-[#5a3821] text-sm">
+                      {step}
+                    </span>
+                  </div>
                 ))}
-              </ol>
+              </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Important Notice */}
-      <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
-        <div className="flex items-start space-x-2">
-          <Clock className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-          <div>
-            <p className="text-sm text-amber-800 font-medium mb-1">Remember</p>
-            <p className="text-sm text-amber-700">
-              In any emergency, trust your instincts. If you feel something is seriously wrong with your baby, 
-              don't hesitate to seek immediate medical attention. It's always better to be safe.
-            </p>
-          </div>
-        </div>
+      {/* Notice */}
+      <div className="bg-[#d6b08b] rounded-2xl p-5 flex items-start space-x-4 shadow-lg">
+        <Clock className="w-6 h-6 text-[#5a3821]" />
+        <p className="text-[#5a3821] font-medium">
+          Trust your instincts—seek immediate help if something’s seriously wrong!
+        </p>
       </div>
 
-      {/* Quick Access to Nearby Hospitals */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="bg-blue-100 p-2 rounded-lg">
-              <MapPin className="w-5 h-5 text-blue-600" />
-            </div>
-            <div>
-              <h4 className="font-semibold text-gray-800">Nearby Hospitals</h4>
-              <p className="text-sm text-gray-600">Find emergency care near you</p>
-            </div>
+      {/* Nearby Hospitals */}
+      <div className="bg-[#f5ebe0] rounded-2xl p-6 flex items-center justify-between shadow-lg">
+        <div className="flex items-center space-x-4">
+          <MapPin className="w-8 h-8 text-[#5a3821]" />
+          <div>
+            <h4 className="text-lg font-semibold text-[#5a3821]">
+              Nearby Hospitals
+            </h4>
+            <p className="text-sm text-[#7a5a3a]">Find care near you</p>
           </div>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
-            Locate
-          </button>
         </div>
+        <button className="bg-[#7a5a3a] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#5a3821]">
+          Locate 🗺️
+        </button>
       </div>
     </div>
   );
