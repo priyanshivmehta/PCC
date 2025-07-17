@@ -15,6 +15,10 @@ import {
 import { useApp } from '../contexts/AppContext';
 import { User as UserType, Baby as BabyType } from '../types';
 
+const PRIMARY_COLOR = '#8e3b30'; // Deep reddish brown
+const PRIMARY_BG_LIGHT = '#f3e5e1'; // Light background tint
+const PRIMARY_BG_LIGHTER = '#f9f5f4'; // Even lighter tint
+
 const ProfilePage: React.FC = () => {
   const { user, setUser, baby, setBaby, currentLanguage, setCurrentLanguage } = useApp();
   const [isEditing, setIsEditing] = useState(false);
@@ -97,30 +101,46 @@ const ProfilePage: React.FC = () => {
   };
 
   return (
-    <div className="pb-20 px-4 space-y-6">
+    <div className="pt-10 px-4 space-y-6">
       {/* Header */}
-      <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-100">
+      <div
+        className="rounded-xl p-6 border"
+        style={{ background: `linear-gradient(to right, ${PRIMARY_BG_LIGHTER}, ${PRIMARY_BG_LIGHT})`, borderColor: PRIMARY_COLOR }}
+      >
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <div className="relative">
               <div className="bg-white p-3 rounded-full shadow-sm">
-                <User className="w-8 h-8 text-purple-600" />
+                <User className="w-8 h-8" style={{ color: PRIMARY_COLOR }} />
               </div>
-              <button title='camera' className="absolute -bottom-1 -right-1 bg-purple-600 text-white p-1 rounded-full">
+              <button
+                title="camera"
+                className="absolute -bottom-1 -right-1"
+                style={{
+                  backgroundColor: PRIMARY_COLOR,
+                  color: 'white',
+                  padding: '0.25rem',
+                  borderRadius: '9999px',
+                }}
+              >
                 <Camera className="w-3 h-3" />
               </button>
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-800">
-                {user?.name || 'Set up your profile'}
-              </h2>
+              <h2 className="text-xl font-bold text-gray-800">{user?.name || 'Set up your profile'}</h2>
               <p className="text-gray-600">Manage your account and baby's information</p>
             </div>
           </div>
           
           <button
-            onClick={() => isEditing ? handleSaveProfile() : setIsEditing(true)}
-            className="bg-purple-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center space-x-2"
+            onClick={() => (isEditing ? handleSaveProfile() : setIsEditing(true))}
+            className="px-4 py-2 rounded-lg font-medium flex items-center space-x-2 transition-colors"
+            style={{
+              backgroundColor: PRIMARY_COLOR,
+              color: 'white',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#6c2f25')}
+            onMouseLeave={e => (e.currentTarget.style.backgroundColor = PRIMARY_COLOR)}
           >
             {isEditing ? <Save className="w-4 h-4" /> : <Edit3 className="w-4 h-4" />}
             <span>{isEditing ? 'Save' : 'Edit'}</span>
@@ -134,22 +154,24 @@ const ProfilePage: React.FC = () => {
           onClick={() => setActiveTab('mother')}
           className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all flex items-center justify-center space-x-2 ${
             activeTab === 'mother'
-              ? 'bg-white text-purple-600 shadow-sm'
+              ? `bg-white shadow-sm text-[${PRIMARY_COLOR}]`
               : 'text-gray-600 hover:text-gray-800'
           }`}
+          style={activeTab === 'mother' ? { color: PRIMARY_COLOR } : {}}
         >
-          <User className="w-4 h-4" />
+          <User className="w-4 h-4" style={activeTab === 'mother' ? { color: PRIMARY_COLOR } : undefined} />
           <span>Mother Profile</span>
         </button>
         <button
           onClick={() => setActiveTab('baby')}
           className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all flex items-center justify-center space-x-2 ${
             activeTab === 'baby'
-              ? 'bg-white text-purple-600 shadow-sm'
+              ? `bg-white shadow-sm text-[${PRIMARY_COLOR}]`
               : 'text-gray-600 hover:text-gray-800'
           }`}
+          style={activeTab === 'baby' ? { color: PRIMARY_COLOR } : {}}
         >
-          <Baby className="w-4 h-4" />
+          <Baby className="w-4 h-4" style={activeTab === 'baby' ? { color: PRIMARY_COLOR } : undefined} />
           <span>Baby Profile</span>
         </button>
       </div>
@@ -159,7 +181,7 @@ const ProfilePage: React.FC = () => {
         <div className="space-y-4">
           <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
             <h3 className="font-semibold text-gray-800 mb-4 flex items-center space-x-2">
-              <User className="w-5 h-5 text-purple-600" />
+              <User className="w-5 h-5" style={{ color: PRIMARY_COLOR }} />
               <span>Personal Information</span>
             </h3>
             
@@ -170,8 +192,9 @@ const ProfilePage: React.FC = () => {
                   <input
                     type="text"
                     value={motherForm.name}
-                    onChange={(e) => setMotherForm({...motherForm, name: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    onChange={(e) => setMotherForm({ ...motherForm, name: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none"
+                    style={{ borderColor: PRIMARY_COLOR, boxShadow: `0 0 0 2px ${PRIMARY_COLOR}50` }}
                     placeholder="Enter your full name"
                   />
                 ) : (
@@ -185,8 +208,9 @@ const ProfilePage: React.FC = () => {
                   <input
                     type="tel"
                     value={motherForm.phone}
-                    onChange={(e) => setMotherForm({...motherForm, phone: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    onChange={(e) => setMotherForm({ ...motherForm, phone: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none"
+                    style={{ borderColor: PRIMARY_COLOR, boxShadow: `0 0 0 2px ${PRIMARY_COLOR}50` }}
                     placeholder="Enter your phone number"
                   />
                 ) : (
@@ -201,7 +225,7 @@ const ProfilePage: React.FC = () => {
 
           <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
             <h3 className="font-semibold text-gray-800 mb-4 flex items-center space-x-2">
-              <MapPin className="w-5 h-5 text-purple-600" />
+              <MapPin className="w-5 h-5" style={{ color: PRIMARY_COLOR }} />
               <span>Location</span>
             </h3>
             
@@ -213,8 +237,9 @@ const ProfilePage: React.FC = () => {
                     <input
                       type="text"
                       value={motherForm.state}
-                      onChange={(e) => setMotherForm({...motherForm, state: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      onChange={(e) => setMotherForm({ ...motherForm, state: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none"
+                      style={{ borderColor: PRIMARY_COLOR, boxShadow: `0 0 0 2px ${PRIMARY_COLOR}50` }}
                       placeholder="State"
                     />
                   ) : (
@@ -228,8 +253,9 @@ const ProfilePage: React.FC = () => {
                     <input
                       type="text"
                       value={motherForm.district}
-                      onChange={(e) => setMotherForm({...motherForm, district: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      onChange={(e) => setMotherForm({ ...motherForm, district: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none"
+                      style={{ borderColor: PRIMARY_COLOR, boxShadow: `0 0 0 2px ${PRIMARY_COLOR}50` }}
                       placeholder="District"
                     />
                   ) : (
@@ -244,8 +270,9 @@ const ProfilePage: React.FC = () => {
                   <input
                     type="text"
                     value={motherForm.pincode}
-                    onChange={(e) => setMotherForm({...motherForm, pincode: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    onChange={(e) => setMotherForm({ ...motherForm, pincode: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none"
+                    style={{ borderColor: PRIMARY_COLOR, boxShadow: `0 0 0 2px ${PRIMARY_COLOR}50` }}
                     placeholder="Pincode"
                   />
                 ) : (
@@ -262,7 +289,7 @@ const ProfilePage: React.FC = () => {
         <div className="space-y-4">
           <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
             <h3 className="font-semibold text-gray-800 mb-4 flex items-center space-x-2">
-              <Baby className="w-5 h-5 text-pink-600" />
+              <Baby className="w-5 h-5" style={{ color: PRIMARY_COLOR }} />
               <span>Baby Information</span>
             </h3>
             
@@ -273,8 +300,9 @@ const ProfilePage: React.FC = () => {
                   <input
                     type="text"
                     value={babyForm.name}
-                    onChange={(e) => setBabyForm({...babyForm, name: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                    onChange={(e) => setBabyForm({ ...babyForm, name: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none"
+                    style={{ borderColor: PRIMARY_COLOR, boxShadow: `0 0 0 2px ${PRIMARY_COLOR}50` }}
                     placeholder="Enter baby's name"
                   />
                 ) : (
@@ -286,20 +314,21 @@ const ProfilePage: React.FC = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
                   {isEditing ? (
-                    <input title='dob'
+                    <input
+                      title="dob"
                       type="date"
                       value={babyForm.dateOfBirth}
-                      onChange={(e) => setBabyForm({...babyForm, dateOfBirth: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                      onChange={(e) => setBabyForm({ ...babyForm, dateOfBirth: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none"
+                      style={{ borderColor: PRIMARY_COLOR, boxShadow: `0 0 0 2px ${PRIMARY_COLOR}50` }}
                     />
                   ) : (
                     <p className="text-gray-800 flex items-center space-x-2">
                       <Calendar className="w-4 h-4 text-gray-500" />
                       <span>
-                        {baby?.dateOfBirth 
-                          ? new Date(baby.dateOfBirth).toLocaleDateString() 
-                          : 'Not set'
-                        }
+                        {baby?.dateOfBirth
+                          ? new Date(baby.dateOfBirth).toLocaleDateString()
+                          : 'Not set'}
                       </span>
                     </p>
                   )}
@@ -308,24 +337,39 @@ const ProfilePage: React.FC = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
                   {isEditing ? (
-                    <select title='gender'
+                    <select
+                      title="gender"
                       value={babyForm.gender}
-                      onChange={(e) => setBabyForm({...babyForm, gender: e.target.value as 'male' | 'female'})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                      onChange={(e) => setBabyForm({ ...babyForm, gender: e.target.value as 'male' | 'female' })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none"
+                      style={{ borderColor: PRIMARY_COLOR, boxShadow: `0 0 0 2px ${PRIMARY_COLOR}50` }}
                     >
                       <option value="male">Boy</option>
                       <option value="female">Girl</option>
                     </select>
                   ) : (
-                    <p className="text-gray-800">{baby?.gender === 'male' ? 'Boy' : baby?.gender === 'female' ? 'Girl' : 'Not set'}</p>
+                    <p className="text-gray-800">
+                      {baby?.gender === 'male'
+                        ? 'Boy'
+                        : baby?.gender === 'female'
+                        ? 'Girl'
+                        : 'Not set'}
+                    </p>
                   )}
                 </div>
               </div>
 
               {baby?.dateOfBirth && (
-                <div className="bg-pink-50 p-3 rounded-lg border border-pink-100">
-                  <p className="text-sm font-medium text-pink-800 mb-1">Current Age</p>
-                  <p className="text-sm text-pink-700">{calculateAge(new Date(baby.dateOfBirth))}</p>
+                <div
+                  className="p-3 rounded-lg border"
+                  style={{ backgroundColor: '#f9f5f4', borderColor: 'rgba(142,59,48,0.25)' }}
+                >
+                  <p className="text-sm font-medium" style={{ color: PRIMARY_COLOR }}>
+                    Current Age
+                  </p>
+                  <p className="text-sm" style={{ color: PRIMARY_COLOR }}>
+                    {calculateAge(new Date(baby.dateOfBirth))}
+                  </p>
                 </div>
               )}
             </div>
@@ -336,10 +380,10 @@ const ProfilePage: React.FC = () => {
       {/* Settings */}
       <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
         <h3 className="font-semibold text-gray-800 mb-4 flex items-center space-x-2">
-          <Settings className="w-5 h-5 text-gray-600" />
+          <Settings className="w-5 h-5" style={{ color: 'rgba(0,0,0,0.6)' }} />
           <span>App Settings</span>
         </h3>
-        
+
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Language</label>
@@ -352,7 +396,7 @@ const ProfilePage: React.FC = () => {
                     value={lang.code}
                     checked={currentLanguage === lang.code}
                     onChange={(e) => setCurrentLanguage(e.target.value)}
-                    className="text-purple-600 focus:ring-purple-500"
+                    className="text-[rgb(142,59,48)] focus:ring-[rgb(142,59,48)]"
                   />
                   <div className="flex items-center space-x-2">
                     <Globe className="w-4 h-4 text-gray-500" />
@@ -373,17 +417,29 @@ const ProfilePage: React.FC = () => {
               </div>
             </div>
             <label className="relative inline-flex items-center cursor-pointer">
-              <input title='bell' type="checkbox" className="sr-only peer" defaultChecked />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
+              <input
+                title="bell"
+                type="checkbox"
+                className="sr-only peer"
+                defaultChecked
+              />
+              <div
+                className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[rgba(142,59,48,0.3)] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[rgb(142,59,48)]"
+              ></div>
             </label>
           </div>
         </div>
       </div>
 
       {/* Data & Privacy */}
-      <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
-        <h3 className="font-semibold text-gray-800 mb-3">Data & Privacy</h3>
-        <div className="space-y-2 text-sm text-gray-600">
+      <div
+        className="rounded-xl p-4 border"
+        style={{ backgroundColor: PRIMARY_BG_LIGHTER, borderColor: 'rgba(142,59,48,0.15)', color: 'rgba(0,0,0,0.65)' }}
+      >
+        <h3 className="font-semibold mb-3" style={{ color: PRIMARY_COLOR }}>
+          Data & Privacy
+        </h3>
+        <div className="space-y-2 text-sm" style={{ color: 'rgba(0,0,0,0.6)' }}>
           <p>• Your data is stored locally on your device</p>
           <p>• We don't share personal information with third parties</p>
           <p>• Medical advice provided is for informational purposes only</p>

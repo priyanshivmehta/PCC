@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        poppins: ['Poppins', 'sans-serif'],
+        tikTok: ['TikTok Sans', 'sans-serif'],
         // sans: [
         //   'Sans Regular',
         //   'ui-sans-serif',
