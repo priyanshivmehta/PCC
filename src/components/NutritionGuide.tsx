@@ -154,35 +154,55 @@ const NutritionGuide: React.FC = () => {
   return (
     <div className="pb-20 px-4 space-y-6">
       {/* Header */}
-      <div className="bg-gradient-to-r from-orange-50 to-yellow-50 rounded-xl p-6 border border-orange-100">
-        <h2 className="text-xl font-bold text-gray-800 mb-2">Nutrition Guide</h2>
-        <p className="text-gray-600">Indian diet-based meal plans for every stage</p>
+      <div
+        className="relative w-full mx-auto rounded-3xl overflow-hidden min-h-[580px] flex items-end mt-12 mb-10"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(165, 42, 42, 0.7), rgba(165, 42, 42, 0.7)), url(https://media.istockphoto.com/id/1127560680/photo/indian-food-curry-butter-chicken-palak-paneer-chiken-tikka-biryani-vegetable-curry-papad-dal.webp?a=1&b=1&s=612x612&w=0&k=20&c=5WxTm6ZeQbSzj8Wiy9pmoM-txK1c3elyhMA8cVgNqJk=)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div
+          className="pl-24 pt-6 md:pl-32 md:pt-8 text-left w-full relative"
+          style={{ top: "-150px" }}
+        >
+          {/* White line from left to heading */}
+          <div className="absolute left-0 top-20 h-px bg-white w-[150px] md:w-[242px]" />
+
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg relative z-10">
+            Nutrition Guide
+          </h2>
+          <p className="text-lg md:text-2xl text-pink-100 font-medium drop-shadow-md max-w-2xl">
+            Indian diet-based plan for every stage
+          </p>
+        </div>
       </div>
 
       {/* Stage Selection */}
       <div className="space-y-3">
-        <h3 className="text-lg font-semibold text-gray-800">Select Stage</h3>
-        <div className="grid grid-cols-2 gap-3">
+        <h3 className="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-4">Select Stage</h3>
+        <div className="flex flex-row gap-4 overflow-x-auto justify-center">
           {stages.map((stage) => {
             const Icon = stage.icon;
             return (
               <button
                 key={stage.id}
                 onClick={() => setSelectedStage(stage.id)}
-                className={`p-4 rounded-xl border-2 transition-all ${
+                className={`w-28 h-32 flex flex-col items-center justify-center rounded-xl border-2 transition-all min-w-[7rem] min-h-[8rem] shadow-sm mx-1 ${
                   selectedStage === stage.id
                     ? 'border-orange-500 bg-orange-50'
                     : 'border-gray-200 bg-white hover:border-orange-300'
                 }`}
               >
-                <div className={`p-2 rounded-lg mb-2 mx-auto w-fit ${
+                <div className={`p-3 rounded-lg mb-2 mx-auto w-fit ${
                   selectedStage === stage.id ? 'bg-orange-100' : 'bg-gray-100'
                 }`}>
-                  <Icon className={`w-6 h-6 ${
+                  <Icon className={`w-8 h-8 ${
                     selectedStage === stage.id ? 'text-orange-600' : 'text-gray-600'
                   }`} />
                 </div>
-                <p className={`font-medium text-sm ${
+                <p className={`font-semibold text-base text-center ${
                   selectedStage === stage.id ? 'text-orange-600' : 'text-gray-700'
                 }`}>
                   {stage.label}
@@ -193,109 +213,122 @@ const NutritionGuide: React.FC = () => {
         </div>
       </div>
 
-      {/* Meal Tabs */}
-      <div className="space-y-3">
-        <h3 className="text-lg font-semibold text-gray-800">Meal Plan</h3>
-        <div className="flex bg-gray-100 rounded-lg p-1 overflow-x-auto">
-          {meals.map((meal) => (
-            <button
-              key={meal}
-              onClick={() => setSelectedMeal(meal)}
-              className={`flex-1 min-w-fit py-2 px-3 rounded-md text-sm font-medium transition-all ${
-                selectedMeal === meal
-                  ? 'bg-white text-orange-600 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-800'
-              }`}
-            >
-              {meal.charAt(0).toUpperCase() + meal.slice(1)}
-            </button>
+      {/* Meal Plan Section - Redesigned */}
+      <div className="py-10">
+        <h2 className="text-4xl md:text-5xl font-bold text-center text-[#7a5a3a] mb-10">Your Personalized Meal Plan</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* Breakfast */}
+          <div className="flex items-start gap-4 bg-[#f5ebe0] rounded-xl p-6 shadow-md">
+            <span className="flex-shrink-0">
+              <Apple className="w-16 h-16 text-[#b05a1a]" />
+            </span>
+            <div>
+              <h3 className="text-2xl font-bold text-[#7a5a3a] mb-1">Breakfast Plan</h3>
+              <p className="text-[#5a3821] text-base">
+                {currentPlan.meals.breakfast.map(f => f.name).join(', ')}.
+                <br/>
+                <span className="text-sm text-[#a67c52]">{currentPlan.meals.breakfast.map(f => f.benefits).join(' | ')}</span>
+              </p>
+            </div>
+          </div>
+          {/* Lunch */}
+          <div className="flex items-start gap-4 bg-[#f5ebe0] rounded-xl p-6 shadow-md">
+            <span className="flex-shrink-0">
+              <Utensils className="w-16 h-16 text-[#b05a1a]" />
+            </span>
+            <div>
+              <h3 className="text-2xl font-bold text-[#7a5a3a] mb-1">Lunch Plan</h3>
+              <p className="text-[#5a3821] text-base">
+                {currentPlan.meals.lunch.map(f => f.name).join(', ')}.
+                <br/>
+                <span className="text-sm text-[#a67c52]">{currentPlan.meals.lunch.map(f => f.benefits).join(' | ')}</span>
+              </p>
+            </div>
+          </div>
+          {/* Dinner */}
+          <div className="flex items-start gap-4 bg-[#f5ebe0] rounded-xl p-6 shadow-md">
+            <span className="flex-shrink-0">
+              <Clock className="w-16 h-16 text-[#b05a1a]" />
+            </span>
+            <div>
+              <h3 className="text-2xl font-bold text-[#7a5a3a] mb-1">Dinner Plan</h3>
+              <p className="text-[#5a3821] text-base">
+                {currentPlan.meals.dinner.map(f => f.name).join(', ')}.
+                <br/>
+                <span className="text-sm text-[#a67c52]">{currentPlan.meals.dinner.map(f => f.benefits).join(' | ')}</span>
+              </p>
+            </div>
+          </div>
+          {/* Snacks */}
+          <div className="flex items-start gap-4 bg-[#f5ebe0] rounded-xl p-6 shadow-md">
+            <span className="flex-shrink-0">
+              <Heart className="w-16 h-16 text-[#b05a1a]" />
+            </span>
+            <div>
+              <h3 className="text-2xl font-bold text-[#7a5a3a] mb-1">Snacks Plan</h3>
+              <p className="text-[#5a3821] text-base">
+                {currentPlan.meals.snacks.map(f => f.name).join(', ')}.
+                <br/>
+                <span className="text-sm text-[#a67c52]">{currentPlan.meals.snacks.map(f => f.benefits).join(' | ')}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Guidelines */}
+      <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
+        <div className="flex items-center space-x-2 mb-4">
+          <CheckCircle className="w-5 h-5 text-green-600" />
+          <h4 className="font-semibold text-gray-800">Guidelines</h4>
+        </div>
+        
+        <div className="space-y-2">
+          {currentPlan.guidelines.map((guideline, index) => (
+            <div key={index} className="flex items-start space-x-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+              <p className="text-sm text-gray-700">{guideline}</p>
+            </div>
           ))}
         </div>
       </div>
 
-      {/* Meal Content */}
-      <div className="space-y-4">
-        <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
-          <div className="flex items-center space-x-2 mb-4">
-            <Clock className="w-5 h-5 text-orange-600" />
-            <h4 className="font-semibold text-gray-800 capitalize">{selectedMeal} Plan</h4>
+      {/* Traditional Indian Foods Spotlight */}
+      <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-4 border border-yellow-100">
+        <div className="flex items-center space-x-2 mb-3">
+          <Heart className="w-5 h-5 text-yellow-600" />
+          <h4 className="font-semibold text-gray-800">Traditional Indian Superfoods</h4>
+        </div>
+        
+        <div className="grid grid-cols-2 gap-3">
+          <div className="bg-white p-3 rounded-lg">
+            <h5 className="font-medium text-gray-800 mb-1">Ragi (रागी)</h5>
+            <p className="text-xs text-gray-600">Rich in calcium, perfect for growing babies</p>
           </div>
-
-          <div className="space-y-3">
-            {currentPlan.meals[selectedMeal].map((food, index) => (
-              <div key={index} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
-                <div className="bg-orange-100 p-2 rounded-lg">
-                  <Apple className="w-4 h-4 text-orange-600" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-start justify-between mb-1">
-                    <h5 className="font-medium text-gray-800">{food.name}</h5>
-                    <span className="text-sm text-gray-600 font-medium">{food.quantity}</span>
-                  </div>
-                  {food.localName && (
-                    <p className="text-sm text-orange-600 mb-1">{food.localName}</p>
-                  )}
-                  <p className="text-sm text-gray-600">{food.benefits}</p>
-                </div>
-              </div>
-            ))}
+          <div className="bg-white p-3 rounded-lg">
+            <h5 className="font-medium text-gray-800 mb-1">Ghee (घी)</h5>
+            <p className="text-xs text-gray-600">Healthy fats for brain development</p>
+          </div>
+          <div className="bg-white p-3 rounded-lg">
+            <h5 className="font-medium text-gray-800 mb-1">Dal (दाल)</h5>
+            <p className="text-xs text-gray-600">Complete protein when combined with rice</p>
+          </div>
+          <div className="bg-white p-3 rounded-lg">
+            <h5 className="font-medium text-gray-800 mb-1">Khichdi (खिचड़ी)</h5>
+            <p className="text-xs text-gray-600">Easy to digest, balanced nutrition</p>
           </div>
         </div>
+      </div>
 
-        {/* Guidelines */}
-        <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
-          <div className="flex items-center space-x-2 mb-4">
-            <CheckCircle className="w-5 h-5 text-green-600" />
-            <h4 className="font-semibold text-gray-800">Guidelines</h4>
-          </div>
-          
-          <div className="space-y-2">
-            {currentPlan.guidelines.map((guideline, index) => (
-              <div key={index} className="flex items-start space-x-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                <p className="text-sm text-gray-700">{guideline}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Traditional Indian Foods Spotlight */}
-        <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-4 border border-yellow-100">
-          <div className="flex items-center space-x-2 mb-3">
-            <Heart className="w-5 h-5 text-yellow-600" />
-            <h4 className="font-semibold text-gray-800">Traditional Indian Superfoods</h4>
-          </div>
-          
-          <div className="grid grid-cols-2 gap-3">
-            <div className="bg-white p-3 rounded-lg">
-              <h5 className="font-medium text-gray-800 mb-1">Ragi (रागी)</h5>
-              <p className="text-xs text-gray-600">Rich in calcium, perfect for growing babies</p>
-            </div>
-            <div className="bg-white p-3 rounded-lg">
-              <h5 className="font-medium text-gray-800 mb-1">Ghee (घी)</h5>
-              <p className="text-xs text-gray-600">Healthy fats for brain development</p>
-            </div>
-            <div className="bg-white p-3 rounded-lg">
-              <h5 className="font-medium text-gray-800 mb-1">Dal (दाल)</h5>
-              <p className="text-xs text-gray-600">Complete protein when combined with rice</p>
-            </div>
-            <div className="bg-white p-3 rounded-lg">
-              <h5 className="font-medium text-gray-800 mb-1">Khichdi (खिचड़ी)</h5>
-              <p className="text-xs text-gray-600">Easy to digest, balanced nutrition</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Warning Note */}
-        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
-          <div className="flex items-start space-x-2">
-            <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-            <div>
-              <p className="text-sm text-amber-800 font-medium mb-1">Important Note</p>
-              <p className="text-sm text-amber-700">
-                These are general guidelines. Always consult with your pediatrician or nutritionist for personalized advice, especially if your baby has allergies or special dietary needs.
-              </p>
-            </div>
+      {/* Warning Note */}
+      <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
+        <div className="flex items-start space-x-2">
+          <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm text-amber-800 font-medium mb-1">Important Note</p>
+            <p className="text-sm text-amber-700">
+              These are general guidelines. Always consult with your pediatrician or nutritionist for personalized advice, especially if your baby has allergies or special dietary needs.
+            </p>
           </div>
         </div>
       </div>

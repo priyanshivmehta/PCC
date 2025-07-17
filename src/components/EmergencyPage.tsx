@@ -12,9 +12,10 @@ import {
   ChevronRight,
   Shield
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const EmergencyPage: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
 
   const emergencyNumbers = [
     {
@@ -107,6 +108,8 @@ const EmergencyPage: React.FC = () => {
         '5 chest compressions',
         'Call 102 if object remains'
       ]
+      ,
+      imge: 'https://images.unsplash.com/photo-1622115297822-a3798fdbe1f6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y3ByfGVufDB8fDB8fHww',
     },
     {
       title: 'Fever Management',
@@ -115,7 +118,8 @@ const EmergencyPage: React.FC = () => {
         'Use tepid sponge',
         'Ensure hydration',
         'Give meds as doctor advised'
-      ]
+      ],
+      image: 'https://plus.unsplash.com/premium_photo-1664910150142-c5fee1b9c1b7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZmV2ZXJ8ZW58MHx8MHx8fDA%3D',
     },
     {
       title: 'Minor Cuts',
@@ -124,7 +128,8 @@ const EmergencyPage: React.FC = () => {
         'Press clean cloth on wound',
         'Wash with clean water',
         'Bandage & watch for infection'
-      ]
+      ],
+      image: 'https://media.istockphoto.com/id/856350192/photo/mother-comforting-son-after-he-injured-his-hand.webp?a=1&b=1&s=612x612&w=0&k=20&c=fc1aZ9iENRh4HbPbUJ0RY-Izkuq1kACsfHoQizGwVqM='
     }
   ];
 
@@ -134,10 +139,29 @@ const EmergencyPage: React.FC = () => {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.4,
+        ease: 'easeOut',
+        when: 'beforeChildren',
+        staggerChildren: 0.15
+      }
+    },
+    exit: { opacity: 0, y: 10, transition: { duration: 0.2 } }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } }
+  };
+
   return (
     <div className="pb-8 px-4 space-y-6 bg-[#fdfbf7]">
-      
-      {/* Hero/Header Section */}
+      {/* Header */}
       <div
         className="relative w-full mx-auto rounded-3xl overflow-hidden min-h-[580px] flex items-end mt-12 mb-10"
         style={{
@@ -151,42 +175,49 @@ const EmergencyPage: React.FC = () => {
           className="pl-24 pt-6 md:pl-32 md:pt-8 text-left w-full relative"
           style={{ top: "-150px" }}
         >
-          {/* White line from left to heading */}
           <div className="absolute left-0 top-20 h-px bg-white w-[150px] md:w-[242px]" />
-
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg relative z-10">
             Emergency Attention
           </h2>
-          <p className="text-lg md:text-2xl text-pink-100 font-medium drop-shadow-md max-w-2xl">
-          </p>
         </div>
       </div>
 
       {/* Emergency Contacts */}
-      <div className="space-y-2">
-        <h2 className="text-xl font-bold text-[#5a3821]">Emergency Contacts</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {emergencyNumbers.map(contact => {
-            const Icon = contact.icon;
+      <div className="space-y-4 bg-gradient-to-br from-red-100 via-yellow-50 to-white py-8 px-4 rounded-3xl shadow-xl">
+        <h2 className="text-3xl font-extrabold text-red-800 mb-6 text-center">
+          🚨 Emergency Contacts
+        </h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {emergencyNumbers.map((c, i) => {
+            const Icon = c.icon;
             return (
-              <div
-                key={contact.number}
-                className="bg-[#f5ebe0] rounded-2xl p-6 flex items-center shadow-lg"
+              <motion.div
+                key={c.number}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="relative bg-white rounded-2xl overflow-hidden transform hover:scale-105 transition-transform shadow-md"
               >
-                <div className={`${contact.color} rounded-full p-3`}>
-                  <Icon className="w-8 h-8 text-white" />
+                <div className="absolute inset-0 bg-red-50 opacity-30 animate-pulse mix-blend-screen" />
+                <div className="p-6 flex items-center space-x-4 relative z-10">
+                  <div className={`${c.color} p-4 rounded-full shadow-lg`}>
+                    <Icon className="w-8 h-8 text-white animate-pulse" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-xl font-semibold text-red-900">{c.name}</h4>
+                    <p className="text-sm text-red-700">{c.description}</p>
+                  </div>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => handleCall(c.number)}
+                    className={`${c.color} text-white px-5 py-2 rounded-full text-lg font-semibold shadow-lg`}
+                  >
+                    📞 {c.number}
+                  </motion.button>
                 </div>
-                <div className="ml-4 flex-1">
-                  <h4 className="text-lg font-semibold text-[#5a3821]">{contact.name}</h4>
-                  <p className="text-sm text-[#7a5a3a]">{contact.description}</p>
-                </div>
-                <button
-                  onClick={() => handleCall(contact.number)}
-                  className={`${contact.color} text-white px-5 py-3 rounded-full font-semibold text-lg shadow hover:opacity-90`}
-                >
-                  📞 {contact.number}
-                </button>
-              </div>
+              </motion.div>
             );
           })}
         </div>
@@ -196,20 +227,17 @@ const EmergencyPage: React.FC = () => {
       <div className="space-y-2">
         <h2 className="text-xl font-bold text-[#5a3821]">When to Seek Help</h2>
         <div className="space-y-3">
-          {emergencySymptoms.map(em => {
+          {emergencySymptoms.map((em, i) => {
             const Icon = em.icon;
-            const isOpen = selectedCategory === em.category;
+            const isHovered = hoveredCategory === em.category;
             return (
               <div
                 key={em.category}
-                className="bg-white/80 rounded-2xl shadow-lg overflow-hidden"
+                onMouseEnter={() => setHoveredCategory(em.category)}
+                onMouseLeave={() => setHoveredCategory(null)}
+                className="group bg-white/80 rounded-2xl shadow-lg overflow-hidden transition duration-300"
               >
-                <button
-                  onClick={() =>
-                    setSelectedCategory(isOpen ? '' : em.category)
-                  }
-                  className="w-full px-6 py-5 flex items-center justify-between hover:bg-[#f5ebe0] transition"
-                >
+                <div className="w-full px-6 py-5 flex items-center justify-between group-hover:bg-[#f5ebe0] transition">
                   <div className="flex items-center space-x-4">
                     <div className={`${em.color} rounded-full p-3`}>
                       <Icon className="w-8 h-8 text-white" />
@@ -219,28 +247,42 @@ const EmergencyPage: React.FC = () => {
                     </h4>
                   </div>
                   <ChevronRight
-                    className={`w-6 h-6 text-[#7a5a3a] transition-transform ${
-                      isOpen ? 'rotate-90' : ''
+                    className={`w-6 h-6 text-[#7a5a3a] transform transition-transform duration-300 ${
+                      isHovered ? 'rotate-90' : ''
                     }`}
                   />
-                </button>
-                {isOpen && (
-                  <div className="px-8 py-4 bg-[#fdfbf7] space-y-4">
-                    <div className="flex flex-wrap gap-2">
-                      {em.symptoms.map((s, i) => (
-                        <span
-                          key={i}
-                          className="bg-[#d6b08b] text-[#5a3821] text-sm px-3 py-1 rounded-full shadow-sm"
-                        >
-                          {s}
-                        </span>
-                      ))}
-                    </div>
-                    <button className="w-full bg-[#b58857] text-white py-3 rounded-2xl font-bold">
-                      {em.action}
-                    </button>
-                  </div>
-                )}
+                </div>
+
+                <AnimatePresence>
+                  {isHovered && (
+                    <motion.div
+                      key="details"
+                      variants={containerVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      className="px-8 py-4 bg-[#fdfbf7] space-y-4"
+                    >
+                      <motion.div className="flex flex-wrap gap-2">
+                        {em.symptoms.map((s, i) => (
+                          <motion.span
+                            key={i}
+                            variants={itemVariants}
+                            className="bg-[#d6b08b] text-[#5a3821] text-sm px-3 py-1 rounded-full shadow-sm"
+                          >
+                            {s}
+                          </motion.span>
+                        ))}
+                      </motion.div>
+                      <motion.button
+                        variants={itemVariants}
+                        className="w-full bg-[#b58857] text-white py-3 rounded-2xl font-bold shadow hover:opacity-90 transition"
+                      >
+                        {em.action}
+                      </motion.button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             );
           })}
@@ -248,39 +290,39 @@ const EmergencyPage: React.FC = () => {
       </div>
 
       {/* First Aid Tips */}
-      <div className="space-y-2">
-        <h2 className="text-xl font-bold text-[#5a3821]">Basic First Aid</h2>
-        <div className="space-y-3">
-          {firstAidTips.map(tip => (
-            <div
-              key={tip.title}
-              className="bg-[#f5ebe0] rounded-2xl p-6 shadow-lg"
-            >
-              <div className="flex items-center mb-4 space-x-3">
-                <Info className="w-6 h-6 text-[#5a3821]" />
-                <h4 className="text-lg font-semibold text-[#5a3821]">
-                  {tip.title}
-                </h4>
+      <div className="space-y-6">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-center text-[#a52a2a] mb-8 tracking-tight drop-shadow-lg" style={{ fontFamily: 'Georgia, serif', letterSpacing: '0.04em' }}>
+          Basic First Aid
+        </h2>
+        <div className="w-[90%] mx-auto">
+          {firstAidTips.map((tip, idx) => {
+            const isEven = idx % 2 === 0;
+            return (
+              <div
+                key={tip.title}
+                className={`flex flex-col md:flex-row items-stretch bg-[#f5ebe0] rounded-2xl shadow-lg overflow-hidden ${!isEven ? 'md:flex-row-reverse' : ''}`}
+                style={{ marginBottom: 0 }}
+              >
+                <div className="w-full md:w-1/2 h-64 md:h-auto flex-shrink-0">
+                  <img
+                    src={tip.image}
+                    alt={tip.title}
+                    className="w-full h-full object-cover md:rounded-none md:rounded-l-2xl"
+                    style={{ minHeight: '100%', minWidth: '100%' }}
+                  />
+                </div>
+                <div className="w-full md:w-1/2 flex flex-col justify-center p-6">
+                  <h4 className="text-2xl font-bold text-[#5a3821] mb-2" style={{ fontFamily: 'Georgia, serif' }}>{tip.title}</h4>
+                  <p className="text-base md:text-lg text-[#5a3821] font-medium leading-relaxed">
+                    {tip.steps.join('. ')}.
+                  </p>
+                </div>
               </div>
-              <div className="flex flex-wrap gap-3">
-                {tip.steps.map((step, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center space-x-2 bg-white px-3 py-2 rounded-full shadow"
-                  >
-                    <span className="text-[#b58857] font-semibold">
-                      {i + 1}
-                    </span>
-                    <span className="text-[#5a3821] text-sm">
-                      {step}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
+
 
       {/* Notice */}
       <div className="bg-[#d6b08b] rounded-2xl p-5 flex items-start space-x-4 shadow-lg">
